@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "tuzov.sso.v1;ssvo1"; // этот параметр именно для Go(для питона например он был бы не нужен)
+
+service Auth { // это внутренний сервис проекта SSO, еще могут быть сервис Permission или User Info
+  rpc Register (RegisterRequest) returns (RegisterResponse); // метод Register который принимает RegisterRequest и возвращает RegisterResponse
+  rpc Login (LoginRequest) returns (LoginResponse); // метод логинит зареганных пользователей и возвращает им JWT токен
+  rpc IsAdmin (IsAdminRequest) returns (IsAdminRequest);
+}
+
+message RegisterRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message RegisterResponse {
+  int64 user_id = 1; // для возврата айди созданного пользователя, на самом деле это просто хорошая практика
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+  int32 app_id = 3; // на случай если у нас много сервисов где можно залогиниться. Рега при этом делается одна на все сервисы сразу
+}
+
+message LoginResponse {
+  string token = 1; // JWT токен
+}
+
+message IsAdminRequest {
+  int64 user_id = 1; // id пользователя, которого мы хотим проверить на то админ ли он
+}
+
+message IsAdminResponse {
+  bool is_admin = 1; // возвращает ответ, является ли этот пользователь админом
+}
