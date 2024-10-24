@@ -7,7 +7,7 @@ option go_package = "tuzov.sso.v1;ssvo1"; // этот параметр имен�
 service Auth { // это внутренний сервис проекта SSO, еще могут быть сервис Permission или User Info
   rpc Register (RegisterRequest) returns (RegisterResponse); // метод Register который принимает RegisterRequest и возвращает RegisterResponse
   rpc Login (LoginRequest) returns (LoginResponse); // метод логинит зареганных пользователей и возвращает им JWT токен
-  rpc IsAdmin (IsAdminRequest) returns (IsAdminRequest);
+  rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse);
 }
 
 message RegisterRequest {
