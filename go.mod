@@ -1,4 +1,4 @@
-module protos
+module github.com/Jentos2020/demogpc
 
 go 1.23.1
 
